@@ -1,4 +1,4 @@
-
+<%= render partial: "shared/header" %> 
 <h2>Create a Discount</h2>
 <%= form_with url: merchant_discounts_path(@merchant.id), method: :post, local: true do |form| %>
 <%= form.label :quantity, "Quantity of Items" %><br/>
