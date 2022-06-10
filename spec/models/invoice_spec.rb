@@ -82,4 +82,23 @@ RSpec.describe Invoice, type: :model do
       expect(Invoice.best_day.created_at).to eq(@i3.created_at)
     end
   end
+
+  xit 'can show total discounted revenue' do 
+    @merchant = Merchant.create!(name: 'Brylan')
+    @merchant.discounts.create!(quantity: 20, percentage: 10)
+    @item_1 = @merchant.items.create!(name: 'Pencil', unit_price: 500, description: 'Writes things.')
+    @item_2 = @merchant.items.create!(name: 'Pen', unit_price: 375, description: 'Writes things, but dark.')
+    @item_3 = @merchant.items.create!(name: 'Marker', unit_price: 400,
+                                      description: 'Writes things, but dark, and thicc.')
+
+    @customer_1 = Customer.create!(first_name: 'Joey', last_name: 'Ondricka')
+    @invoice_1 = @customer_1.invoices.create!(status: 'completed',
+                                              created_at: 'Wed, 01 Jan 2022 21:20:02 UTC +00:00')
+    @invoice_7 = @customer_1.invoices.create!(status: 'completed')
+    @item_1.invoice_items.create!(invoice_id: @invoice_1.id, quantity: 3, unit_price: 400, status: 'packaged',
+                                  created_at: Time.parse('2012-03-27 14:54:09 UTC'))
+    @item_2.invoice_items.create!(invoice_id: @invoice_1.id, quantity: 20, unit_price: 375, status: 'packaged',
+                                  created_at: Time.parse('2012-03-28 14:54:09 UTC'))
+    expect(@invoice_1.discounted_revenue).to eq(67.50)
+  end
 end

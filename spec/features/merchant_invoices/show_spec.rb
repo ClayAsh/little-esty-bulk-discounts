@@ -94,4 +94,14 @@ RSpec.describe 'Merchant Invoice Show page' do
       expect(page).to have_content('packaged')
     end
   end
+
+  xit 'displays the discounted revenue of the items on the invoice' do
+    visit merchant_invoice_path(@merchant, @invoice_1)
+
+    within "#invoice-#{@invoice_1.id}" do
+      expect(page).to have_content('Discounted Revenue: $15.75')
+    end
+  end 
 end
+
+
