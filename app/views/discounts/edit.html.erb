@@ -1,9 +1,9 @@
-
+<%= render partial: "shared/header" %> 
 <h2>Edit Discount</h2>
 <%= form_with url: merchant_discount_path(@merchant.id, @discount.id), method: :patch, local: true do |form| %>
 <%= form.label :quantity, "Quantity of Items" %><br/>
-<%= form.text_field :quantity, placeholder: @discount.quantity %><br/>
+<%= form.text_field :quantity, placeholder: "#{@discount.quantity}" %><br/>
 <%= form.label :percentage, "Percentage Off" %><br/>
-<%= form.text_field :percentage, placeholder: @discount.percentage %><br/>
+<%= form.text_field :percentage, placeholder: "#{@discount.percentage}" %><br/>
 <%= form.submit 'Submit' %>
 <% end %>
