@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :merchants do
     resources :items, only: %i[index show edit update new create]
     resources :dashboard, only: [:index]
+    resources :discounts, only: %i[index show new create]
     resources :invoices, only: %i[index show] do
       resources :invoice_items, only: %i[edit update]
     end
