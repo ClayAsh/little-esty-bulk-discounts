@@ -141,4 +141,12 @@ RSpec.describe 'Merchant Dashboard Index', type: :feature do
 
     expect(page).to have_content('Little Esty Shop')
   end
+
+  it 'has link to view all discounts' do 
+    visit merchant_dashboard_index_path(@merchant.id)
+
+    click_link "View all Discounts" 
+
+    expect(current_path).to eq(merchant_discounts_path(@merchant.id))
+  end
 end
