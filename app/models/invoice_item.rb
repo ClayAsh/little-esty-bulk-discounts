@@ -13,4 +13,18 @@ class InvoiceItem < ApplicationRecord
     where(status: %w[pending packaged])
       .order(:created_at)
   end
+
+  def has_discount?
+    if apply_discount 
+      true 
+    else 
+      false 
+    end
+  end 
+
+  def apply_discount 
+    self.discounts.where("quantity <= ?", self.quantity)
+  end
+  
+
 end
