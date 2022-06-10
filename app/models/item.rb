@@ -3,6 +3,7 @@ class Item < ApplicationRecord
   enum status: { 'Enabled' => 0, 'Disabled' => 1 }
 
   belongs_to :merchant
+  has_many :discounts, through: :merchant 
   has_many :invoice_items
   has_many :invoices, through: :invoice_items
   validates_presence_of :name
