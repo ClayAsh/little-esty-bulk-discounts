@@ -13,9 +13,6 @@ class Invoice < ApplicationRecord
     invoice_items.sum('quantity * unit_price').to_f / 100
   end
 
-  # def discounted_revenue 
-  # end
-
   def self.best_day
     joins(:invoice_items)
       .where(status: 2)
