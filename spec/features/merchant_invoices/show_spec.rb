@@ -103,6 +103,15 @@ RSpec.describe 'Merchant Invoice Show page' do
       expect(page).to have_content('Discounted Revenue: $75.75')
     end
   end 
+
+  it 'has a link to applied discount' do 
+    visit merchant_invoice_path(@merchant, @invoice_1)
+
+    within "#invoice-items-#{@invoice_item_1.id}" do
+      click_link "Applied Discount"
+      expect(current_path).to eq(merchant_discount_path(@merchant, @discount_1))
+    end
+  end
 end
 
 
