@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'Admin Invoice Show page' do
   before :each do
-    @merchant = Merchant.create!(name: 'Brylan')
+    @merchant = Merchant.create!(name: 'Office Supplies')
+    @discount_1 = @merchant.discounts.create!(quantity: 20, percentage: 10)
     @item_1 = @merchant.items.create!(name: 'Pencil', unit_price: 500, description: 'Writes things.')
     @item_2 = @merchant.items.create!(name: 'Pen', unit_price: 400, description: 'Writes things, but dark.')
     @item_3 = @merchant.items.create!(name: 'Marker', unit_price: 400,
@@ -13,7 +14,7 @@ RSpec.describe 'Admin Invoice Show page' do
     @invoice_1 = @customer_1.invoices.create!(status: 'in progress', created_at: 'Sat, 1 Jan 2022 21:20:02 UTC +00:00')
     @invoice_7 = @customer_1.invoices.create!(status: 'cancelled')
     @invoice_5 = @customer_1.invoices.create!(status: 'in progress')
-    @invoice_item_1 = @item_1.invoice_items.create!(invoice_id: @invoice_1.id, quantity: 3, unit_price: 400, status: 'packaged',
+    @invoice_item_1 = @item_1.invoice_items.create!(invoice_id: @invoice_1.id, quantity: 20, unit_price: 400, status: 'packaged',
                                                     created_at: Time.parse('2012-03-27 14:54:09 UTC'))
     @invoice_item_2 = @item_2.invoice_items.create!(invoice_id: @invoice_1.id, quantity: 5, unit_price: 400, status: 'packaged',
                                                     created_at: Time.parse('2012-03-28 14:54:09 UTC'))
@@ -32,6 +33,7 @@ RSpec.describe 'Admin Invoice Show page' do
     within "#invoice-header-#{@invoice_1.id}" do
       expect(page).to have_content("Invoice ##{@invoice_1.id}")
     end
+
     within "#invoice-#{@invoice_1.id}" do
       expect(page).to have_content('Created on: Saturday, January 01, 2022')
       expect(page).to have_content("#{@customer_1.first_name} #{@customer_1.last_name}")
@@ -43,7 +45,7 @@ RSpec.describe 'Admin Invoice Show page' do
   it 'displays the invoice items information', :vcr do
     visit admin_invoice_path(@invoice_1)
     within "#invoice-items-#{@invoice_item_1.id}" do
-      expect(page).to have_content('Pencil 3 $500 packaged')
+      expect(page).to have_content('Pencil 20 $500 packaged')
     end
   end
 
@@ -79,13 +81,12 @@ RSpec.describe 'Admin Invoice Show page' do
     click_on('Update Invoice Status')
 
     expect(current_path).to eq(admin_invoice_path(@invoice_7))
-    
-
     expect(page).to have_content('in progress')
   end
+
   it 'can update the status of a invoice item', :vcr do
     visit admin_invoice_path(@invoice_5)
-
+    
     current = find_field('status').value
     expect(current).to eq('in progress')
 
@@ -93,8 +94,19 @@ RSpec.describe 'Admin Invoice Show page' do
     click_on('Update Invoice Status')
 
     expect(current_path).to eq(admin_invoice_path(@invoice_5))
-
-
     expect(page).to have_content('cancelled')
+  end
+
+  it 'displays the ammount of discounted revenue made by the invoice' do
+    visit admin_invoice_path(@invoice_1)
+
+    current = find_field('status').value
+    expect(current).to eq('in progress')
+
+    select('completed')
+    click_on('Update Invoice Status')
+
+    expect(page).to have_content("Discounted Revenue: $92.0")
+    expect(page).to have_content("Total Revenue: $100.0")
   end
 end
