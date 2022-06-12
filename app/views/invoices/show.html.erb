@@ -32,7 +32,7 @@
       <tr id="invoice-items-<%=invoice_item.id%>" scope="row">
         <td><%= invoice_item.item.name %></td>
         <td><%= invoice_item.quantity %></td>
-        <td><%= invoice_item.item.unit_price_to_dollars %></td>
+        <td>$<%= invoice_item.item.unit_price_to_dollars %></td>
         <td>
           <%= form_with url: merchant_invoice_invoice_item_path(@merchant, invoice_item), method: :patch do |form| %>
           <%= form.label :status, "Status:" %>

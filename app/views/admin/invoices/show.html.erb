@@ -14,7 +14,7 @@
   <%= @invoice.created_at.strftime('%A, %B %m, %Y') %><br>
   Total Revenue: $<%= @invoice.total_revenue %><br>
   <% if @invoice.total_revenue != @invoice.invoice_items.discounted_revenue.to_f/100 %>
-  Total Discounted Revenue: $<%= @invoice.invoice_items.discounted_revenue.to_f/100 %>
+  Total Discounted Revenue: $<%= @invoice.invoice_items.discounted_revenue.to_f/100 %></br>
   <%end%>
   <strong>Customer:</strong>
   <%= @invoice.customer.first_name %>
