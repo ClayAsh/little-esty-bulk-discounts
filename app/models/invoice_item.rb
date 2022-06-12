@@ -33,7 +33,11 @@ class InvoiceItem < ApplicationRecord
   end
 
   def apply_discount 
+    if best_discount.nil?
+      revenue
+    else
     revenue * (1- (best_discount.percentage.to_f / 100) )
+    end 
   end
 
   def self.discounted_revenue

@@ -12,12 +12,17 @@ RSpec.describe 'Merchant Invoice Show page' do
     @customer_1 = Customer.create!(first_name: 'Joey', last_name: 'Ondricka')
     @invoice_1 = @customer_1.invoices.create!(status: 'completed',
                                               created_at: 'Wed, 01 Jan 2022 21:20:02 UTC +00:00')
+    @invoice_2 = @customer_1.invoices.create!(status: 'completed',
+                                              created_at: 'Wed, 01 Jan 2022 21:20:02 UTC +00:00')
+
     @invoice_7 = @customer_1.invoices.create!(status: 'completed')
     @invoice_item_1 = @item_1.invoice_items.create!(invoice_id: @invoice_1.id, quantity: 20, unit_price: 400, status: 'packaged',
                                                     created_at: Time.parse('2012-03-27 14:54:09 UTC'))
     @invoice_item_2 = @item_2.invoice_items.create!(invoice_id: @invoice_7.id, quantity: 5, unit_price: 375, status: 'pending',
                                                     created_at: Time.parse('2012-03-28 14:54:09 UTC'))
     @invoice_item_3 = @item_2.invoice_items.create!(invoice_id: @invoice_1.id, quantity: 1, unit_price: 375, status: 'shipped',
+                                                    created_at: Time.parse('2012-03-28 14:54:09 UTC'))
+    @invoice_item_4 = @item_2.invoice_items.create!(invoice_id: @invoice_2.id, quantity: 1, unit_price: 375, status: 'shipped',
                                                     created_at: Time.parse('2012-03-28 14:54:09 UTC'))
   end
 
@@ -41,7 +46,7 @@ RSpec.describe 'Merchant Invoice Show page' do
     within "#invoice-items-#{@invoice_item_1.id}" do
       expect(page).to have_content('Pencil')
       expect(page).to have_content('20')
-      expect(page).to have_content('500')
+      expect(page).to have_content('5.00')
       expect(page).to have_content('packaged')
     end
   end
@@ -103,6 +108,11 @@ RSpec.describe 'Merchant Invoice Show page' do
       expect(page).to have_content('Discounted Revenue: $75.75')
     end
   end 
+
+  it 'doesnt display discounted revenue if no discount was applied' do 
+    visit merchant_invoice_path(@merchant, @invoice_2)
+    expect(page).to_not have_content("Discounted Revenue:")
+  end
 
   it 'has a link to applied discount' do 
     visit merchant_invoice_path(@merchant, @invoice_1)

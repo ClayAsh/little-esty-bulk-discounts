@@ -9,7 +9,9 @@
   Created on:
   <%= @invoice.created_at.strftime('%A, %B %m, %Y') %><br>
   Total Revenue: $<%= @invoice.total_revenue %><br>
+  <% if @invoice.total_revenue != @invoice.invoice_items.discounted_revenue.to_f/100 %>
   Total Discounted Revenue: $<%= @invoice.invoice_items.discounted_revenue.to_f/100 %>
+  <%end%>
   <h2 class="pt-1">Customer:</h2>
   <%= @invoice.customer.first_name %>
   <%= @invoice.customer.last_name%>
@@ -30,7 +32,7 @@
       <tr id="invoice-items-<%=invoice_item.id%>" scope="row">
         <td><%= invoice_item.item.name %></td>
         <td><%= invoice_item.quantity %></td>
-        <td><%= invoice_item.item.unit_price %></td>
+        <td><%= invoice_item.item.unit_price_to_dollars %></td>
         <td>
           <%= form_with url: merchant_invoice_invoice_item_path(@merchant, invoice_item), method: :patch do |form| %>
           <%= form.label :status, "Status:" %>
