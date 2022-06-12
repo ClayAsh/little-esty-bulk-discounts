@@ -12,11 +12,14 @@ RSpec.describe 'Admin Invoice Show page' do
     @customer_1 = Customer.create!(first_name: 'Joey', last_name: 'Ondricka')
     @customer_2 = Customer.create!(first_name: 'Chael', last_name: 'Sonnen')
     @invoice_1 = @customer_1.invoices.create!(status: 'in progress', created_at: 'Sat, 1 Jan 2022 21:20:02 UTC +00:00')
+    @invoice_2 = @customer_1.invoices.create!(status: 'in progress', created_at: 'Sat, 1 Jan 2022 21:20:02 UTC +00:00')
     @invoice_7 = @customer_1.invoices.create!(status: 'cancelled')
     @invoice_5 = @customer_1.invoices.create!(status: 'in progress')
     @invoice_item_1 = @item_1.invoice_items.create!(invoice_id: @invoice_1.id, quantity: 20, unit_price: 400, status: 'packaged',
                                                     created_at: Time.parse('2012-03-27 14:54:09 UTC'))
     @invoice_item_2 = @item_2.invoice_items.create!(invoice_id: @invoice_1.id, quantity: 5, unit_price: 400, status: 'packaged',
+                                                    created_at: Time.parse('2012-03-28 14:54:09 UTC'))
+    @invoice_item32 = @item_2.invoice_items.create!(invoice_id: @invoice_2.id, quantity: 5, unit_price: 400, status: 'packaged',
                                                     created_at: Time.parse('2012-03-28 14:54:09 UTC'))
 
     @invoice_1.transactions.create!(credit_card_number: '4654405418249632', result: 'success')
@@ -45,7 +48,7 @@ RSpec.describe 'Admin Invoice Show page' do
   it 'displays the invoice items information', :vcr do
     visit admin_invoice_path(@invoice_1)
     within "#invoice-items-#{@invoice_item_1.id}" do
-      expect(page).to have_content('Pencil 20 $500 packaged')
+      expect(page).to have_content('Pencil 20 $5.00 packaged')
     end
   end
 
@@ -54,6 +57,11 @@ RSpec.describe 'Admin Invoice Show page' do
     within "#invoice-#{@invoice_1.id}" do
       expect(page).to have_content("Total Revenue: $#{@invoice_1.total_revenue}")
     end
+  end
+
+  it 'doesnt display discounted revenue if no discount was applied' do 
+    visit admin_invoice_path(@invoice_2)
+    expect(page).to_not have_content("Discounted Revenue:")
   end
 
   it 'can update the status of a invoice item', :vcr do
