@@ -1,4 +1,6 @@
 class DiscountsController < ApplicationController 
+  before_action :upcoming_holidays, only: %i[index]
+
   def index
     @discounts = Discount.all 
     @merchant = Merchant.find(params[:merchant_id])
@@ -53,4 +55,9 @@ class DiscountsController < ApplicationController
   def discount_params 
     params.permit(:percentage, :quantity)
   end
+
+  def upcoming_holidays
+  @holidays = HolidayFacade.create_holidays
+  end
+
 end

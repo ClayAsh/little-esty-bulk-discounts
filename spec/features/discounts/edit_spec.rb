@@ -22,4 +22,34 @@ RSpec.describe 'discount edit page' do
     expect(current_path).to eq(merchant_discount_path(merchant_1.id, discount_1.id))
     expect(page).to have_content("Buy 10 get 10% off")
   end
+
+  it 'has error message if input is not an integer' do 
+    visit merchant_discount_path(merchant_1.id, discount_1.id)
+
+    click_link "Edit Discount"
+
+    expect(current_path).to eq(edit_merchant_discount_path(merchant_1.id, discount_1.id))
+
+    fill_in "quantity", with: "a"
+    fill_in "percentage", with: "b"
+    click_button "Submit"
+
+    expect(current_path).to eq(edit_merchant_discount_path(merchant_1.id, discount_1.id))
+    expect(page).to have_content("Error: Discount cannot exceed 50% off & values must be integers!")
+  end
+
+  it 'has error message if discount percentage is over 50%' do 
+    visit merchant_discount_path(merchant_1.id, discount_1.id)
+
+    click_link "Edit Discount"
+
+    expect(current_path).to eq(edit_merchant_discount_path(merchant_1.id, discount_1.id))
+
+    fill_in "quantity", with: "10"
+    fill_in "percentage", with: "100"
+    click_button "Submit"
+
+    expect(current_path).to eq(edit_merchant_discount_path(merchant_1.id, discount_1.id))
+    expect(page).to have_content("Error: Discount cannot exceed 50% off & values must be integers!")
+  end
 end
