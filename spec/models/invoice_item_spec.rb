@@ -56,6 +56,7 @@ RSpec.describe InvoiceItem, type: :model do
                                   created_at: Time.parse('2012-03-28 14:54:09 UTC'))
 
     expect(@ii_2.has_discount?).to eq(true)    
+    expect(@ii_1.has_discount?).to eq(false)    
   end 
 
   it 'returns qualifying discount and not discount that isnt qualified for' do 
