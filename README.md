@@ -1,95 +1,35 @@
+# Little Esty 
 
-# Merchant Bulk Discounts Index
-User Stories
+<img src="https://drive.google.com/file/d/1gZKwlCr9DuJ7Zfrv3AL-PJwEinefKxCd/view?usp=sharing" alt="schema" />
 
-As a merchant
-When I visit my merchant dashboard
-Then I see a link to view all my discounts
-When I click this link
-Then I am taken to my bulk discounts index page
-Where I see all of my bulk discounts including their
-percentage discount and quantity thresholds
-And each bulk discount listed includes a link to its show page
-Merchant Bulk Discount Create
 
-As a merchant
-When I visit my bulk discounts index
-Then I see a link to create a new discount
-When I click this link
-Then I am taken to a new page where I see a form to add a new bulk discount
-When I fill in the form with valid data
-Then I am redirected back to the bulk discount index
-And I see my new bulk discount listed
-Merchant Bulk Discount Delete
+Little Esty is a web-deployed e-commerce program that allows merchants to manage invoices and inventory on a fictional platform, as well as create and manage coupons.
+Utilizes an external database, leveraging Active Record & SQL. 
+Consumes the Nager.Date API to display upcoming holidays.
 
-As a merchant
-When I visit my bulk discounts index
-Then next to each bulk discount I see a link to delete it
-When I click this link
-Then I am redirected back to the bulk discounts index page
-And I no longer see the discount listed
-Merchant Bulk Discount Show
+## Built With 
+   ![RoR](https://img.shields.io/badge/Ruby_on_Rails-CC0000?style=for-the-badge&logo=ruby-on-rails&logoColor=white)
+   ![pgsql](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
+   ![heroku](https://img.shields.io/badge/Heroku-430098?style=for-the-badge&logo=heroku&logoColor=white)  
 
-As a merchant
-When I visit my bulk discount show page
-Then I see the bulk discount's quantity threshold and percentage discount
-Merchant Bulk Discount Edit
+## Gems 
+   ![rspec](https://img.shields.io/gem/v/rspec-rails?label=rspec&style=flat-square)
+   ![shoulda](https://img.shields.io/gem/v/shoulda-matchers?label=shoulda-matchers&style=flat-square)
+   ![capybara](https://img.shields.io/gem/v/capybara?label=capybara&style=flat-square)
+   ![simplecov](https://img.shields.io/gem/v/simplecov?label=simplecov&style=flat-square)
+   ![orderly](https://img.shields.io/gem/v/orderly?label=orderly&style=flat-square)
+   ![factory](https://img.shields.io/gem/v/factory_bot?label=factory%20bot&style=flat-square)
+   ![faker](https://img.shields.io/gem/v/faker?label=faker&style=flat-square)
+   ![simplecov](https://img.shields.io/gem/v/simplecov?color=blue&label=simplecov) 
 
-As a merchant
-When I visit my bulk discount show page
-Then I see a link to edit the bulk discount
-When I click this link
-Then I am taken to a new page with a form to edit the discount
-And I see that the discounts current attributes are pre-poluated in the form
-When I change any/all of the information and click submit
-Then I am redirected to the bulk discount's show page
-And I see that the discount's attributes have been updated
-Merchant Invoice Show Page: Total Revenue and Discounted Revenue
+## Authors
+  
+ [Clay Ash](https://github.com/ClayAsh)
+ [Bryce Wein](https://github.com/bwbolt)
+ [Stirling Hostetter](https://github.com/stirlhoss)
+ [Caden Jarrett](https://github.com/caden-jarrett)
+ [Saba Bhamidipati](https://github.com/SabaBhamidipati)
 
-As a merchant
-When I visit my merchant invoice show page
-Then I see the total revenue for my merchant from this invoice (not including discounts)
-And I see the total discounted revenue for my merchant from this invoice which includes bulk discounts in the calculation
-Merchant Invoice Show Page: Link to applied discounts
+## Link 
 
-As a merchant
-When I visit my merchant invoice show page
-Next to each invoice item I see a link to the show page for the bulk discount that was applied (if any)
-Admin Invoice Show Page: Total Revenue and Discounted Revenue
-
-As an admin
-When I visit an admin invoice show page
-Then I see the total revenue from this invoice (not including discounts)
-And I see the total discounted revenue from this invoice which includes bulk discounts in the calculation
-As a merchant
-When I visit the discounts index page
-I see a section with a header of "Upcoming Holidays"
-In this section the name and date of the next 3 upcoming US holidays are listed.
-
-Use the Next Public Holidays Endpoint in the [Nager.Date API](https://date.nager.at/swagger/index.html)
-
-Extensions
-When an invoice is pending, a merchant should not be able to delete or edit a bulk discount that applies to any of their items on that invoice.
-When an Admin marks an invoice as “completed”, then the discount percentage should be stored on the invoice item record so that it can be referenced later
-Merchants should not be able to create/edit bulk discounts if they already have a discount in the system that would prevent the new discount from being applied (see example 4)
-Holiday Discount Extensions
-Create a Holiday Discount
-
-As a merchant,
-when I visit the discounts index page,
-In the Holiday Discounts section, I see a `create discount` button next to each of the 3 upcoming holidays.
-When I click on the button I am taken to a new discount form that has the form fields auto populated with the following:
-
-Discount name: <name of holiday> discount
-Percentage Discount: 30
-Quantity Threshold: 2
-
-I can leave the information as is, or modify it before saving.
-I should be redirected to the discounts index page where I see the newly created discount added to the list of discounts.
-View a Holiday Discount
-
-As a merchant (if I have created a holiday discount for a specific holiday),
-when I visit the discount index page,
-within the `Upcoming Holidays` section I should not see the button to 'create a discount' next to that holiday,
-instead I should see a `view discount` link.
-When I click the link I am taken to the discount show page for that holiday discount.
+   ![Little Esty on Heroku](https://guarded-atoll-73025.herokuapp.com/merchants/1/dashboard)
