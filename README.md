@@ -1,7 +1,6 @@
 # Little Esty 
 
-<img src="https://drive.google.com/file/d/1gZKwlCr9DuJ7Zfrv3AL-PJwEinefKxCd/view?usp=sharing" alt="schema" />
-
+<img src="https://drive.google.com/file/d/1gZKwlCr9DuJ7Zfrv3AL-PJwEinefKxCd/view?usp=sharing">
 
 Little Esty is a web-deployed e-commerce program that allows merchants to manage invoices and inventory on a fictional platform, as well as create and manage coupons.
 Utilizes an external database, leveraging Active Record & SQL. 
@@ -23,13 +22,14 @@ Consumes the Nager.Date API to display upcoming holidays.
    ![simplecov](https://img.shields.io/gem/v/simplecov?color=blue&label=simplecov) 
 
 ## Authors
-  
- [Clay Ash](https://github.com/ClayAsh)
- [Bryce Wein](https://github.com/bwbolt)
- [Stirling Hostetter](https://github.com/stirlhoss)
- [Caden Jarrett](https://github.com/caden-jarrett)
- [Saba Bhamidipati](https://github.com/SabaBhamidipati)
+<li>
+  <ul>[Clay Ash](https://github.com/ClayAsh)</ul>
+  <ul>[Bryce Wein](https://github.com/bwbolt)</ul>
+  <ul>[Stirling Hostetter](https://github.com/stirlhoss)</ul>
+  <ul>[Caden Jarrett](https://github.com/caden-jarrett)</ul>
+  <ul>[Saba Bhamidipati](https://github.com/SabaBhamidipati)</ul>
+</li>
 
 ## Link 
 
-   ![Little Esty on Heroku](https://guarded-atoll-73025.herokuapp.com/merchants/1/dashboard)
+  <a href="https://guarded-atoll-73025.herokuapp.com/merchants/1/dashboard">Little Esty on Heroku</a>
