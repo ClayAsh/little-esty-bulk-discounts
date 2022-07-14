@@ -2,7 +2,6 @@
 
 <img src="https://drive.google.com/file/d/1gZKwlCr9DuJ7Zfrv3AL-PJwEinefKxCd/view?usp=sharing">
 
-
 Little Esty is a web-deployed e-commerce program that allows merchants to manage invoices and inventory on a fictional platform, as well as create and manage coupons.
 Utilizes an external database, leveraging Active Record & SQL. 
 Consumes the Nager.Date API to display upcoming holidays.
